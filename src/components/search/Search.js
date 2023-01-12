@@ -1,22 +1,26 @@
 import React from "react";
-import "./Search.css";
 
-import { BiSearch } from "react-icons/bi";
-
-const Search = (props) => {
+const Search = ({ handleSearch }) => {
   return (
-    <form action="">
+    <form className="form-inline">
       <input
-        type="text"
-        placeholder="search.."
-        required
-        value={props.searchTerm}
-        onChange={(event) => props.setSearchTerm(event.target.value)}
+        type="search"
+        className="form-control form-search"
+        placeholder="Search by name or category"
+        onChange={handleSearch}
       />
-      <button className="fa " onClick={props.handleSearch}>
-        <BiSearch className="fa" />
+      <button type="submit" className="btn btn-primary">
+        Add Product
       </button>
     </form>
+    // <div className="search-form">
+    //   <input
+    //     type="text"
+    //     placeholder="Search by name or category"
+    //     onChange={handleSearch}
+    //   />
+    //   <button className="add-product-button">Add Product</button>
+    // </div>
   );
 };
 

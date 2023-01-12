@@ -1,36 +1,50 @@
 import React from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import Search from "../search/Search";
 
 const Table = () => {
-  const [data, setData] = useState("");
+  const [data, setData] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
-  const getData = () => {
-    axios
-      .get("https://product-fhqo.onrender.com/products")
-      .then((res) => {
-        console.log(res);
-        setData(res.data);
-      })
-      .catch((error) => {
-        console.log(error);
-        // ...
-      });
-  };
+  // const getData = () => {
+  //   axios
+  //     .get("https://product-fhqo.onrender.com/products")
+  //     .then((res) => {
+  //       console.log(res);
+  //       setData(res.data);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //       // ...
+  //     });
+  // };
 
-  const handleDelete = (id) => {
-    axios
-      .delete(`https://product-fhqo.onrender.com/products/${id}`)
-      .then(() => {
-        getData();
-      });
-  };
+  // const handleDelete = (id) => {
+  //   axios
+  //     .delete(`https://product-fhqo.onrender.com/products/${id}`)
+  //     .then(() => {
+  //       getData();
+  //     });
+  // };
+  // useEffect(() => {
+  //   getData();
+  // }, []);
+
   useEffect(() => {
-    getData();
+    axios.get("https://product-fhqo.onrender.com/products").then((res) => {
+      console.log("🚀 ~ file: Table.js:38 ~ useEffect ~ res", res);
+      return setData(res.data);
+    });
   }, []);
+
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+  };
 
   return (
     <>
+      <Search handleSearch={handleSearch} />
       <table className="table">
         <thead>
           <tr>
@@ -63,7 +77,7 @@ const Table = () => {
                     <td>
                       <button
                         className=" btn btn-danger"
-                        onClick={() => handleDelete(eachData.id)}
+                        // onClick={() => handleDelete(eachData.id)}
                       >
                         delete
                       </button>
