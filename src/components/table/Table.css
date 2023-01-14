@@ -1,0 +1,62 @@
+/* Responsive CSS for table */
+
+/* Define a container to hold the table */
+.table-container {
+  width: 70%; /* 90% of the screen width */
+  margin: 0 auto; /* Center the container on the screen */
+}
+
+/* Define styles for the table */
+.product-table {
+  width: 100%; /* Take up the full width of the container */
+  border-collapse: collapse; /* Remove the space between table cells */
+}
+
+/* Define styles for the table headers */
+.product-table th {
+  padding: 12px 20px; /* Add some padding to the table headers */
+  text-align: left; /* Align the text in the table headers to the left */
+  background-color: #f2f2f2; /* Add a light gray background color to the table headers */
+  border: 1px solid #ddd; /* Add a border to the table headers */
+}
+
+/* Define styles for the table rows */
+.product-table td {
+  padding: 12px 20px; /* Add some padding to the table rows */
+  text-align: left; /* Align the text in the table rows to the left */
+  border: 1px solid #ddd; /* Add a border to the table rows */
+}
+.edit-button {
+  padding: 6px 12px; /* Add some padding to the button */
+  background-color: #4caf50; /* Add a green background color to the button */
+  color: white; /* Make the text on the button white */
+  border: none; /* Remove the border from the button */
+  border-radius: 4px; /* Round the corners of the button */
+  cursor: pointer; /* Add a cursor when hovering over the button */
+  margin-right: 10px; /* Add some margin between the buttons */
+}
+
+/* Define styles for the "delete" button */
+.delete-button {
+  padding: 6px 12px; /* Add some padding to the button */
+  background-color: #f44336; /* Add a red background color to the button */
+  color: white; /* Make the text on the button white */
+  border: none; /* Remove the border from the button */
+  border-radius: 4px; /* Round the corners of the button */
+  cursor: pointer; /* Add a cursor when hovering over the button */
+}
+
+/* Define media query for the table to be responsive */
+@media screen and (max-width: 600px) {
+  .product-table {
+    width: 100%; /* Take up the full width of the screen */
+  }
+  .product-table th,
+  .product-table td {
+    display: block; /* Display the table cells as blocks */
+    width: 100%; /* Take up the full width of the screen */
+  }
+  .product-table th {
+    text-align: left; /* Align the text in the table headers to the left */
+  }
+}

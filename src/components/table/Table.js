@@ -1,94 +1,78 @@
 import React from "react";
+import "./Table.css";
+import { useProductContext } from "../../context/productContext";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import Search from "../search/Search";
 
 const Table = () => {
-  const [data, setData] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
-
-  // const getData = () => {
-  //   axios
-  //     .get("https://product-fhqo.onrender.com/products")
-  //     .then((res) => {
-  //       console.log(res);
-  //       setData(res.data);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //       // ...
-  //     });
-  // };
-
-  // const handleDelete = (id) => {
-  //   axios
-  //     .delete(`https://product-fhqo.onrender.com/products/${id}`)
-  //     .then(() => {
-  //       getData();
-  //     });
-  // };
-  // useEffect(() => {
-  //   getData();
-  // }, []);
-
+  const { isLoading, products, deleteProduct } = useProductContext();
+  // console.log("🚀 ~ file: Table.js:8 ~ Table ~ products", products);
+  const [deletedId, setDeletedId] = useState();
   useEffect(() => {
-    axios.get("https://product-fhqo.onrender.com/products").then((res) => {
-      console.log("🚀 ~ file: Table.js:38 ~ useEffect ~ res", res);
-      return setData(res.data);
-    });
-  }, []);
+    if (deletedId) {
+      deleteProduct(deletedId);
+    }
+  }, [deletedId]);
 
-  const handleSearch = (e) => {
-    setSearchTerm(e.target.value);
-  };
+  if (isLoading) {
+    return <h1>loading...</h1>;
+  }
 
   return (
-    <>
-      <Search handleSearch={handleSearch} />
-      <table className="table">
+    <div className="table-container">
+      <table className="product-table">
         <thead>
           <tr>
-            <th scope="col">id</th>
-            <th scope="col">Name</th>
-            <th scope="col">Category</th>
-            <th scope="col">Description</th>
-            <th scope="col">Created At</th>
-            <th scope="col">status</th>
-            <th scope="col">edit</th>
-            <th scope="col">delete</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Created</th>
           </tr>
         </thead>
-        {data.products &&
-          data.products.length > 0 &&
-          data.products.map((eachData) => {
+        <tbody>
+          {/* <tr index>
+            <td>product_name</td>
+            <td>category</td>
+            <td>description</td>
+            <td>status</td>
+            <td>created</td>
+            <td>
+              <button className="edit-button">edit</button>
+            </td>
+            <td>
+              <button className="delete-button">delete</button>
+            </td>
+          </tr> */}
+
+          {products.map((products, index) => {
             return (
-              <>
-                <tbody>
-                  <tr>
-                    <th scope="row">{eachData.id}</th>
-                    <td>{eachData.product_name}</td>
-                    <td>{eachData.category_name}</td>
-                    <td>{eachData.description}</td>
-                    <td>{eachData.created_at}</td>
-                    <td>{eachData.status}</td>
-                    <td>
-                      <button className="btn btn-success">edit</button>
-                    </td>
-                    <td>
-                      <button
-                        className=" btn btn-danger"
-                        // onClick={() => handleDelete(eachData.id)}
-                      >
-                        delete
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
-              </>
+              <tr key={index}>
+                <td>{products.product_name}</td>
+                <td>{products.category_name}</td>
+                <td>{products.description}</td>
+                <td>{products.status}</td>
+                <td>{products.created_date}</td>
+                <td>
+                  <button
+                    className="edit-button"
+                    // onClick={() => onEdit(products)}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    className="delete-button"
+                    onClick={() => setDeletedId(products.id)}
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
             );
           })}
+        </tbody>
       </table>
-    </>
+    </div>
   );
 };
 
